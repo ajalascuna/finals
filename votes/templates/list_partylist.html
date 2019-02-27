@@ -1,28 +1,27 @@
 {% extends 'base.html' %}
-{% block title %}Index{% endblock %}
+{% block title %}Partylists{% endblock %}
 {% block body %}
     {% if request.user.is_authenticated %}
-       <!--  <div class="row">
-        {% for candidate in candidates %}
+        <div class="row">
+           
+        {% for partylist in partylist %}
             <div class="col m3 center">
               <div class="card blue-grey darken-1 hoverable">
                 <div class="card-content white-text">
-                  <span class="card-title truncate">{{ candidate.firstname }} {{ candidate.lastname }}</span>
-                  <p class="truncate">Votes: {{ candidate.votes.all.count }}</p>
+                  <span class="card-title truncate"> Partylist: {{ partylist.partylist_name }}</span>
+                  <p class="truncate">Description: {{ partylist.description }}</p>
                 </div>
-                <div class="card-action">
+                <!-- <div class="card-action">
                     <a href="{% url 'votes:detail_candidate' candidate.partylist.id candidate.id %}">See Details</a>
-               </div>
+               </div> -->
             </div>
           </div>
         {% endfor %}
-        </div> -->
-        <div class="row center">
-            <a href="{% url 'votes:list_candidate' %}" class="btn">Candidates</a>
-            <a href="{% url 'votes:list_position' %}" class="btn">Positions</a>
-            <a href="{% url 'votes:list_partylist' %}" class="btn">Partylists</a>
-            <a href="{% url 'votes:logout' %}" class="btn">Logout</a>
-        </div>
+         </div>
+         <div class="row center">
+                <a href="{% url 'votes:create_partylist' %}" class="btn">Add new Partylist</a>
+                <a href="{% url 'votes:logout' %}" class="btn">Logout</a>
+            </div>
     {% else %}
         <div class="row">
             <br />

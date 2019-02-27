@@ -39,12 +39,6 @@ class Candidate(models.Model):
 
 
 class Vote(models.Model):
-    name = models.CharField(max_length = 100)
-    candidate = models.ForeignKey(Candidate,
-                on_delete = models.CASCADE,
-                related_name = 'candidates',
-                null=True, blank=True)
-    vote_datetime = models.DateTimeField(default=datetime.now)
-
-    def __str__(self):
-        return 'Vote {}'.format(self.name)
+    candidate = models.ForeignKey(Candidate, on_delete=models.CASCADE,
+                                    related_name='votes', null=True)
+    vote_datetime = models.DateTimeField(auto_now_add=True)

@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from .models import Candidate, Position, Vote
+from .models import Candidate, Position, Vote, Partylist
 from .forms import (CandidateModelForm, PositionModelForm,
                     RegistrationModelForm, PartylistModelForm)
 from django.contrib.auth.decorators import login_required
@@ -9,12 +9,34 @@ from django.contrib.auth import login, authenticate, logout
 # Create your views here.
 def index(request):
     context = {}
+    return render(request, 'index.html', context)
+
+@login_required
+def list_candidate(request):
+    context = {}
     candidates = Candidate.objects.all().order_by('position')
     context['candidates'] = candidates
-    # partylists = Partylist.objects.partylist.all()
-    # context['partylists'] = partylists
+   
 
-    return render(request, 'index.html', context)
+    return render(request, 'list_candidate.html', context)
+
+@login_required
+def list_partylist(request):
+    context = {}
+    partylists = Partylist.objects.all().order_by('partylist')
+    context['partylists'] = partylists
+ 
+    return render(request, 'list_partylist.html', context)
+
+@login_required
+def list_position(request):
+    context = {}
+    positions = Position.objects.all().order_by('position')
+    context['positions'] = positions
+   
+
+    return render(request, 'list_position.html', context)
+
 
 @login_required
 def detail_candidate(request, partylist_id, candidate_id):
@@ -88,6 +110,8 @@ def create_position(request):
         form = PositionModelForm()
         context['form'] = form
     return render(request, 'create_position.html', context)
+
+
 
 @login_required
 def vote(request, candidate_id):
